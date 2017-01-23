@@ -20,7 +20,10 @@
       "styles": [
         "styles.css"
       ],
-      "scripts": [],
+      "scripts": [
+        "../node_modules/jspdf/dist/jspdf.min.js",
+        "../node_modules/rasterizehtml/dist/rasterizeHTML.allinone.js"
+      ],
       "environments": {
         "source": "environments/environment.ts",
         "dev": "environments/environment.ts",

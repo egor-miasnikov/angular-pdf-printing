@@ -3,11 +3,13 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
-import { AppComponent } from './app.component';
+import { BasicPdfPrintComponent } from './basic-pdf-print/basic-pdf-print.component';
+import { AdvancedPdfPrintComponent } from './advanced-pdf-print/advanced-pdf-print.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    BasicPdfPrintComponent,
+    AdvancedPdfPrintComponent
   ],
   imports: [
     BrowserModule,
@@ -15,6 +17,6 @@ import { AppComponent } from './app.component';
     HttpModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [BasicPdfPrintComponent, AdvancedPdfPrintComponent]
 })
 export class AppModule { }
