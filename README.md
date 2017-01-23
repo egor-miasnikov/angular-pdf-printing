@@ -1,31 +1,94 @@
-# PdfPrinting
+# Angular PDF printing snippet
 
 This project was generated with [angular-cli](https://github.com/angular/angular-cli) version 1.0.0-beta.26.
 
-## Development server
+## Usage
+
+### Development server
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
-## Code scaffolding
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive/pipe/service/class/module`.
+### Basic printing
 
-## Build
+#### Install jsPDF and types
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.
+```shell
+$ npm install jspdf --save
+$ npm install @types/jspdf --save
+```
 
-## Running unit tests
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+#### Then need to add script path to `angular-cli.json` into `apps` section
 
-## Running end-to-end tests
+```javascript
+"scripts": [
+    "../node_modules/jspdf/dist/jspdf.min.js"
+],
+```
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-Before running the tests make sure you are serving the app via `ng serve`.
+#### Then go to your component and declare jsPDF on it
 
-## Deploying to GitHub Pages
+```javascript
+declare let jsPDF;
+```
 
-Run `ng github-pages:deploy` to deploy to GitHub Pages.
+#### And use it inside you component
 
-## Further help
+```javascript
+let doc = new jsPDF();
+doc.text(20, 20, 'Hello world.');
+doc.save('Test.pdf');
+```
 
-To get more help on the `angular-cli` use `ng help` or go check out the [Angular-CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+### Advanced printing
+
+#### Install jsPDF, types and rasterizeHTML
+
+```shell
+$ npm install jspdf --save
+$ npm install @types/jspdf --save
+$ npm install rasterizehtml --save
+```
+
+#### Add scripts to `angular-cli.json` into `apps` section
+
+```javascript
+"scripts": [
+    "../node_modules/jspdf/dist/jspdf.min.js",
+    "../node_modules/rasterizehtml/dist/rasterizeHTML.allinone.js"
+],
+```
+
+#### Then go to your component and declare jsPDF on it
+
+```javascript
+declare let jsPDF;
+```
+
+#### Import `ElementRef`
+
+```javascript
+import { Component, ElementRef, AfterViewInit} from '@angular/core';
+```
+
+#### Get current element into component
+
+```javascript
+constructor(private elementRef: ElementRef) {
+    super()
+  }
+```
+
+#### And finally use `jsPDF` inside you component
+
+```javascript
+let doc = new jsPDF('p', 'px', 'a4');
+let options = {
+  pagesplit: true
+};
+doc.fromHTML(this.elementRef.nativeElement, 0, 0, options, () => {
+    doc.save('Test.pdf');
+  });
+}
+```
+
